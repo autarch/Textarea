@@ -1,0 +1,34 @@
+<html>
+
+<head>
+ <script type="text/javascript" src="lib/JSAN.js"></script>
+ <script type="text/javascript">
+  JSAN.addRepository("lib", "../lib");
+  JSAN.errorLevel = "die";
+  JSAN.use("Test.More");
+ </script>
+</head>
+<body>
+
+ <form action="" method="get">
+   <textarea id="t1"></textarea>
+   <textarea id="t2">already has some text</textarea>
+ </form>
+
+ <pre style="white-space: pre" id="test"><script>
+  JSAN.use("Textarea.Text");
+
+  plan( { tests: 3 } );
+
+  document.getElementById("t1").value = "";
+
+  var t1 = new Textarea.Text ( document.getElementById("t1") );
+
+  ok( t1, "got a new Textarea.Text object" );
+  is( t1.selectedText(), "", "no text is currently selected" );
+  t1.replaceOrInsertText("foo")
+  is( t1.textarea.value, "foo", "inserted foo" );
+</script></pre>
+
+</body>
+</html>
