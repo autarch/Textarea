@@ -16,17 +16,17 @@
  </form>
 
  <pre style="white-space: pre" id="test"><script>
-  JSAN.use("Textarea.Text");
+  JSAN.use("Textarea");
 
   plan( { tests: 3 } );
 
   document.getElementById("t1").value = "";
 
-  var t1 = new Textarea.Text ( document.getElementById("t1") );
+  var t1 = new Textarea ( document.getElementById("t1") );
 
   ok( t1, "got a new Textarea.Text object" );
   is( t1.selectedText(), "", "no text is currently selected" );
-  t1.replaceOrInsertText("foo")
+  t1.replaceSelectedText("foo")
   is( t1.textarea.value, "foo", "inserted foo" );
 </script></pre>
 
