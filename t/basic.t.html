@@ -12,7 +12,11 @@
 
  <form action="" method="get">
    <textarea id="t1" rows="10"></textarea>
-   <textarea id="t2" rows="10">already has some text</textarea>
+   <textarea id="t2" rows="10">Line 1
+
+Line 3
+Line 4
+Line 5</textarea>
  </form>
 
  <pre style="white-space: pre" id="test"><script>
@@ -45,67 +49,70 @@
   t1.moveCaret(20);
   is( t1.caretPosition(), 3, "caret is currently at position 3");
 
-  t1.textarea.value = "Line 1\n\nLine 3\nLine 4\nLine 5";
+  var t2 = new Textarea ( document.getElementById("t2") );
+  t2.moveCaret(-9999);
 
-  t1.moveCaret(-9999);
-  ok( ! t1.caretIsMidLine(), "caret is not mid line (pos 0)" );
+  ok( ! t2.caretIsMidLine(), "caret is not mid line (pos 0)" );
 
-  t1.moveCaret(1);
-  ok( t1.caretIsMidLine(), "caret is mid line (pos 1)" );
+  t2.moveCaret(1);
+  ok( t2.caretIsMidLine(), "caret is mid line (pos 1)" );
 
-  t1.moveCaret(2);
-  ok( t1.caretIsMidLine(), "caret is mid line (pos 3)" );
+  t2.moveCaret(2);
+  ok( t2.caretIsMidLine(), "caret is mid line (pos 3)" );
 
-  t1.moveCaret(2);
-  ok( t1.caretIsMidLine(), "caret is mid line (pos 5)" );
+  t2.moveCaret(2);
+  ok( t2.caretIsMidLine(), "caret is mid line (pos 5)" );
 
-  t1.moveCaret(2);
-  ok( ! t1.caretIsMidLine(), "caret is not mid line (pos 7)" );
+  t2.moveCaret(2);
+  ok( ! t2.caretIsMidLine(), "caret is not mid line (pos 7)" );
 
-  t1.moveCaretToBeginningOfLine();
-  is( t1.caretPosition(), 7, "caret is still at pos 7 - at head of empty line" );
+  t2.moveCaretToBeginningOfLine();
+  is( t2.caretPosition(), 7, "caret is still at pos 7 - at head of empty line" );
 
-  t1.moveCaret(-1);
-  t1.moveCaretToBeginningOfLine();
-  is( t1.caretPosition(), 0, "caret is now at pos 0 - moved to beginning from very end of line" );
+  t2.moveCaret(-1);
+  t2.moveCaretToBeginningOfLine();
+  is( t2.caretPosition(), 0, "caret is now at pos 0 - moved to beginning from very end of line" );
 
-  t1.moveCaret(4);
-  t1.moveCaretToBeginningOfLine();
-  is( t1.caretPosition(), 0, "caret is now at pos 0 - moved to beginning from mid line" );
+  t2.moveCaret(4);
+  t2.moveCaretToBeginningOfLine();
+  is( t2.caretPosition(), 0, "caret is now at pos 0 - moved to beginning from mid line" );
 
-  t1.moveCaret(-9999);
-  t1.moveCaret(8);
-  t1.moveCaretToBeginningOfLine();
-  is( t1.caretPosition(), 8, "caret is still at pos 8 - at head of line after empty line" );
+  t2.moveCaret(-9999);
+  t2.moveCaret(8);
+  t2.moveCaretToBeginningOfLine();
+  is( t2.caretPosition(), 8, "caret is still at pos 8 - at head of line after empty line" );
 
-  t1.moveCaret(2);
-  t1.moveCaretToBeginningOfLine();
-  is( t1.caretPosition(), 8, "caret is now at pos 8 - moved to beginning from mid line" );
+  t2.moveCaret(2);
+  t2.moveCaretToBeginningOfLine();
+  is( t2.caretPosition(), 8, "caret is now at pos 8 - moved to beginning from mid line" );
 
-  t1.moveCaret(9);
-  t1.moveCaretToBeginningOfLine();
-  is( t1.caretPosition(), 15, "caret is now at pos 15 - moved to beginning from mid line" );
+  t2.moveCaret(9);
+  t2.moveCaretToBeginningOfLine();
+  is( t2.caretPosition(), 15, "caret is now at pos 15 - moved to beginning from mid line" );
 
-  t1.moveCaret(-9999);
-  is( t1.previousLine(), "", "previous line is empty when caret is at top of document" );
+  t2.moveCaret(-9999);
+  is( t2.previousLine(), "", "previous line is empty when caret is at top of document" );
 
-  t1.moveCaret(2);
-  is( t1.previousLine(), "", "previous line is empty when caret is mid-first line" );
+  t2.moveCaret(2);
+  is( t2.previousLine(), "", "previous line is empty when caret is mid-first line" );
 
-  t1.moveCaret(6);
-  is( t1.previousLine(), "", "previous line is empty when caret is at head of third line" );
+  t2.moveCaret(6);
+  is( t2.previousLine(), "", "previous line is empty when caret is at head of third line" );
 
-  t1.moveCaret(-1);
-  is( t1.previousLine(), "Line 1", "previous line gets Line 1 from head of second line" );
+  t2.moveCaret(-1);
+  is( t2.previousLine(), "Line 1", "previous line gets Line 1 from head of second line" );
 
-  t1.moveCaret(8);
-  is( t1.previousLine(), "Line 3", "previous line gets Line 3 from head of fourth line" );
+  t2.moveCaret(8);
+  is( t2.previousLine(), "Line 3", "previous line gets Line 3 from head of fourth line" );
 
-  t1.moveCaret(2);
-  is( t1.previousLine(), "Line 3", "previous line gets Line 3 from middle of fourth line" );
+  t2.moveCaret(2);
+  is( t2.previousLine(), "Line 3", "previous line gets Line 3 from middle of fourth line" );
 
-  t1.moveCaret(4);
-  is( t1.previousLine(), "Line 3", "previous line gets Line 3 from end of fourth line" );
+  t2.moveCaret(4);
+  is( t2.previousLine(), "Line 3", "previous line gets Line 3 from end of fourth line" );
+
+  t2.selectText(0,6);
+  is( t2.selectedText(), "Line 1", "set selected text to the first line" );
 </script></pre>
 
 </body>
